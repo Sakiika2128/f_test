@@ -5,14 +5,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: Text(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('aaa'),
+        ),
+      body: Text(
         'flutter demo',
         style: TextStyle(fontSize: 16),
+      ),
       ),
     );
   }
