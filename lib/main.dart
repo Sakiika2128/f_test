@@ -7,7 +7,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   final title = 'テキスト';
-  final message = 'メッセージ';
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,6 @@ class MyApp extends StatelessWidget {
       title: 'FLUTTER DEMO',
       home: MyHomePage(
         title: this.title,
-        message: this.message,
       ),
     );
   }
@@ -23,29 +21,40 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget{
   final String title;
-  final String message;
   const MyHomePage({
     Key? key,
     required this.title,
-    required this.message
   }): super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-  class _MyHomePageState extends State<MyHomePage>{
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Text(
-          widget.message,
-          style: TextStyle(fontSize: 16),
-        ),
-      );
-    }
+class _MyHomePageState extends State<MyHomePage>{
+  String _message = 'Hello!';
+
+  void _setMessage(){
+    setState(() => 
+      _message = "ボタンが押されました",
+    );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Text(
+        _message,
+        style: TextStyle(fontSize: 16),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _setMessage,
+        tooltip: 'push the button',
+        child: Icon(Icons.star),
+      ),
+    );
+  }
+}
 
