@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('aaa'),
         ),
-      body: Text(
-        'flutter demo',
-        style: TextStyle(fontSize: 16),
-      ),
+        body: Text(
+          'flutter demo',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
     );
   }
