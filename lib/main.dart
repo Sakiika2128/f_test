@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:f_test/Data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,27 +32,35 @@ class MyHomePage extends StatefulWidget{
 }
 
 class _MyHomePageState extends State<MyHomePage>{
-  String _message = 'Hello!';
-
-  void _setMessage(){
-    setState(() => 
-      _message = "ボタンが押されました",
-    );
+  static final _data = [
+    Data('Apple', 200),
+    Data('Orange', 150),
+    Data('Peach', 300),
+  ];
+  Data _item = _data[0];
+ 
+  void _setData(){
+    setState(() {
+      _data.shuffle();
+      _item = _data.first;
+      // _item = (_data..shuffle()).first;
+    });
   }
+   
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('SET DATA'),
       ),
       body: Text(
-        _message,
-        style: TextStyle(fontSize: 16),
+        _item.toString(),
+        style: TextStyle(fontSize: 24),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _setMessage,
-        tooltip: 'push the button',
+        onPressed: _setData,
+        tooltip: 'set some item',
         child: Icon(Icons.star),
       ),
     );
