@@ -1,69 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:f_test/Data.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(new MyApp());
 }
-
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  final title = 'テキスト';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FLUTTER DEMO',
-      home: MyHomePage(
-        title: this.title,
+    return new MaterialApp(
+      title: 'Generated App',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF2196f3),
+        accentColor: const Color(0xFF2196f3),
+        canvasColor: const Color(0xFFfafafa),
       ),
+      home: new MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget{
-  final String title;
-  const MyHomePage({
-    Key? key,
-    required this.title,
-  }): super(key: key);
-
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key}) : super(key: key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>{
-  static final _data = [
-    Data('Apple', 200),
-    Data('Orange', 150),
-    Data('Peach', 300),
-  ];
-  Data _item = _data[0];
- 
-  void _setData(){
-    setState(() {
-      _data.shuffle();
-      _item = _data.first;
-      // _item = (_data..shuffle()).first;
-    });
-  }
-   
-
-  @override
-  Widget build(BuildContext context) {
+class _MyHomePageState extends State<MyHomePage> {
+   @override
+   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SET DATA'),
+        title: Text('flutter demo'),
       ),
-      body: Text(
-        _item.toString(),
-        style: TextStyle(fontSize: 24),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _setData,
-        tooltip: 'set some item',
-        child: Icon(Icons.star),
+      body: Container(
+        color: Colors.greenAccent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Text(
+              'サンプルテキスト',
+              style: TextStyle(
+                fontSize: 36,
+                backgroundColor: Colors.orangeAccent,
+              ),
+            ),
+            Text(
+              'ねこ様🐱',
+              style: TextStyle(
+                fontSize: 36,
+                backgroundColor: Colors.pinkAccent,
+              ),
+            ),
+          ],
+        ),
       ),
     );
-  }
+   }
 }
-
