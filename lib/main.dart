@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             IconButton(
               icon: Icon(Icons.flutter_dash),
-              iconSize: 100,
+              iconSize: 150,
               color: Colors.pinkAccent,
               onPressed: buttonPressed,
             ),
