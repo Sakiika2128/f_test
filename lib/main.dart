@@ -59,20 +59,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-              TextButton(
-                onPressed: buttonPressed,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'PUSH',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Roboto',
-                    ),
-                  ),
-              ),
+            IconButton(
+              icon: Icon(Icons.flutter_dash),
+              iconSize: 100,
+              color: Colors.pinkAccent,
+              onPressed: buttonPressed,
             ),
+            // RawMaterialButton(
+            //   onPressed: buttonPressed,
+            //   fillColor: Colors.lightBlue,
+            //   elevation: 10,
+            //   padding: EdgeInsets.all(10),
+            //   child: Text(
+            //     'PUSH ME!',
+            //     style: TextStyle(
+            //       fontFamily: 'Roboto',
+            //       color: Colors.white,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
+            //   ElevatedButton(
+            //     onPressed: buttonPressed,
+            //     child: Padding(
+            //       padding: EdgeInsets.all(10),
+            //       child: Text(
+            //         'PUSH',
+            //         style: TextStyle(
+            //           fontSize: 32,
+            //           fontWeight: FontWeight.bold,
+            //           fontFamily: 'Roboto',
+            //         ),
+            //       ),
+            //   ),
+            // ),
           ],
         ),
       ),
