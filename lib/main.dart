@@ -35,23 +35,30 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         color: Colors.greenAccent,
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Text(
-              'サンプルテキスト',
+              '🐶',
               style: TextStyle(
                 fontSize: 36,
                 backgroundColor: Colors.orangeAccent,
               ),
             ),
             Text(
-              'ねこ様🐱',
+              '🐱',
               style: TextStyle(
                 fontSize: 36,
                 backgroundColor: Colors.pinkAccent,
+              ),
+            ),
+            Text(
+              '🐰',
+              style: TextStyle(
+                fontSize: 36,
+                backgroundColor: Colors.yellowAccent,
               ),
             ),
           ],
