@@ -27,43 +27,55 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   @override
-   Widget build(BuildContext context) {
+  String _message = 'OK';
+  List<String> _janken = ['👊', '🤞', '🖐'];
+
+  void buttonPressed() {
+    setState(() {
+      _message = (_janken..shuffle()).first;
+    });
+  }
+
+  @override 
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('flutter demo'),
+        title: Text('FLUTTER DEMO'),
       ),
-      body: Container(
-        color: Colors.greenAccent,
-        child: Row(
+      body: Center(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Text(
-              '🐶',
-              style: TextStyle(
-                fontSize: 36,
-                backgroundColor: Colors.orangeAccent,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                _message,
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Roboto',
+                ),
               ),
             ),
-            Text(
-              '🐱',
-              style: TextStyle(
-                fontSize: 36,
-                backgroundColor: Colors.pinkAccent,
-              ),
-            ),
-            Text(
-              '🐰',
-              style: TextStyle(
-                fontSize: 36,
-                backgroundColor: Colors.yellowAccent,
+              TextButton(
+                onPressed: buttonPressed,
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'PUSH',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
               ),
             ),
           ],
         ),
       ),
     );
-   }
+  }
 }
