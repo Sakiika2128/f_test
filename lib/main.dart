@@ -58,12 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.all(20),
               child: TextField(
-                onChanged: (String newText) {
-                  if (newText.isNotEmpty) {
-                    SemanticsService.announce('\$$newText', Directionality.of(context));
-                    print(newText);
-                  }
-                },
+                onChanged: textChanged,
                 controller: _controller,
                 style: TextStyle(
                   fontFamily: 'Roboto',
@@ -78,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-  void textChanged(){
+  void textChanged(String val){
     setState(() {
-      
+      _message = val.toUpperCase();
     });
   }
 }
