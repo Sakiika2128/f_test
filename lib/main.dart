@@ -28,54 +28,63 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static var _message = 'OK';
-  static final _controller = TextEditingController();
+ static var _message = 'OK';
+ static var _checked = false;
 
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('FLUTTER DEMO'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                _message,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 28,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.indigo,
-                ),
+ @override
+ Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('FLUTTER DEMO'),
+    ),
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              _message,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 32,
+                fontWeight: FontWeight.w400,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: TextField(
-                onChanged: textChanged,
-                controller: _controller,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 28,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.deepPurple,
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Switch(
+                  value: _checked,
+                  onChanged: checkChanged,
                 ),
-              ),
+                Text(
+                  'checkbox',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-  void textChanged(String val){
-    setState(() {
-      _message = val.toUpperCase();
-    });
-  }
+    ),
+  );
+ }
+ void checkChanged(bool? value){
+  setState(() {
+    _checked = value!;
+    _message = value ? 'checked!' : 'not checked...';
+  });
+ }
 }
