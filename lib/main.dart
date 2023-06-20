@@ -28,63 +28,82 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- static var _message = 'OK';
- static var _checked = false;
+  static var _message = 'OK';
+  static var _selected = 'A';
 
- @override
- Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('FLUTTER DEMO'),
-    ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Text(
-              _message,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 32,
-                fontWeight: FontWeight.w400,
+  @override 
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('FLUTTER DEMO'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                _message,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 32,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Row(
+            Padding(
+              padding: EdgeInsets.all(10),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Switch(
-                  value: _checked,
+                Radio(
+                  value: 'A',
+                  groupValue: _selected,
                   onChanged: checkChanged,
                 ),
                 Text(
-                  'checkbox',
+                  'Radio A',
                   style: TextStyle(
-                    fontFamily: 'Roboto',
                     fontSize: 28,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Radio(
+                  value: 'B',
+                  groupValue: _selected,
+                  onChanged: checkChanged,
+                ),
+                Text(
+                  'Radio B',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
-  );
- }
- void checkChanged(bool? value){
-  setState(() {
-    _checked = value!;
-    _message = value ? 'checked!' : 'not checked...';
-  });
- }
+    );
+  }
+  void checkChanged(String? value){
+    setState(() {
+      _selected = value ?? 'no data';
+      _message = 'select: $_selected';
+    });
+  }
 }
