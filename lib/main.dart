@@ -27,16 +27,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _message = 'OK';
-  List<String> _janken = ['👊', '🤞', '🖐'];
+  static var _message = 'OK';
+  static final _controller = TextEditingController();
 
-  void buttonPressed() {
-    setState(() {
-      _message = (_janken..shuffle()).first;
-    });
-  }
-
-  @override 
+  @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
@@ -53,49 +47,46 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text(
                 _message,
                 style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
                   fontFamily: 'Roboto',
+                  fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.indigo,
                 ),
               ),
             ),
-            // IconButton(
-            //   icon: Icon(Icons.flutter_dash),
-            //   iconSize: 150,
-            //   color: Colors.pinkAccent,
-            //   onPressed: buttonPressed,
-            // ),
-            // RawMaterialButton(
-            //   onPressed: buttonPressed,
-            //   fillColor: Colors.lightBlue,
-            //   elevation: 10,
-            //   padding: EdgeInsets.all(10),
-            //   child: Text(
-            //     'PUSH ME!',
-            //     style: TextStyle(
-            //       fontFamily: 'Roboto',
-            //       color: Colors.white,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
-              ElevatedButton(
-                onPressed: buttonPressed,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'PUSH',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Roboto',
-                    ),
-                  ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: TextField(
+                controller: _controller,
+                maxLength: 15,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.deepPurple,
+                ),
               ),
+            ),
+            ElevatedButton(
+              child: Text(
+                'PUSH',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 32,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.amberAccent,
+                ),
+              ),
+              onPressed: buttonPressed,
             ),
           ],
         ),
       ),
     );
+  }
+  void buttonPressed(){
+    setState(() {
+      _message = 'you said:' + _controller.text;
+    });
   }
 }
