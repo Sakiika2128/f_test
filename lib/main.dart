@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(new MyApp());
@@ -57,8 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.all(20),
               child: TextField(
+                onChanged: (String newText) {
+                  if (newText.isNotEmpty) {
+                    SemanticsService.announce('\$$newText', Directionality.of(context));
+                    print(newText);
+                  }
+                },
                 controller: _controller,
-                maxLength: 15,
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 28,
@@ -67,26 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            ElevatedButton(
-              child: Text(
-                'PUSH',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 32,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.amberAccent,
-                ),
-              ),
-              onPressed: buttonPressed,
-            ),
           ],
         ),
       ),
     );
   }
-  void buttonPressed(){
+  void textChanged(){
     setState(() {
-      _message = 'you said:' + _controller.text;
+      
     });
   }
 }
