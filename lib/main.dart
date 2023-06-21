@@ -29,13 +29,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
  static var _message = 'OK';
- static var _value = 0.0;
 
  @override
  Widget build(BuildContext context){
   return Scaffold(
     appBar: AppBar(
-      title: Text('DropdownButton DEMO'),
+      title: Text('FLUTTER DEMO'),
     ),
     body: Center(
       child: Column(
@@ -50,28 +49,39 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(
                 fontFamily: 'Roboto',
                 fontSize: 32,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
           Padding(
             padding: EdgeInsets.all(10),
           ),
-          Slider(
-            onChanged: sliderChanged,
-            min: 0.0,
-            max: 100.0,
-            value: _value,
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: ElevatedButton(
+              onPressed: buttonPressed,
+              child: Text(
+                'Tap here',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
           ),
         ],
       ),
     ),
   );
  }
- void sliderChanged(double value){
-  setState(() {
-    _value = value.floorToDouble();
-    _message = 'set: $_value';
-  });
+ void buttonPressed(){
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: Text('Hello!'),
+      content: Text('button is tapped.'),
+    ),
+  );
  }
 }
