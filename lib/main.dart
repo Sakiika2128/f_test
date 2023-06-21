@@ -28,82 +28,68 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static var _message = 'OK';
-  static var _selected = 'A';
+ static var _message = 'OK';
+ static var _selected = 'One';
 
-  @override 
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('FLUTTER DEMO'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                _message,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 32,
-                  fontWeight: FontWeight.w500,
-                ),
+ @override
+ Widget build(BuildContext context){
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('DropdownButton DEMO'),
+    ),
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              _message,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 32,
+                fontWeight: FontWeight.w400,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(10),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+          ),
+          DropdownButton<String>(
+            onChanged: popupSelected,
+            value: _selected,
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Roboto',
+              fontSize: 28,
+              fontWeight: FontWeight.w500,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Radio(
-                  value: 'A',
-                  groupValue: _selected,
-                  onChanged: checkChanged,
-                ),
-                Text(
-                  'Radio A',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Radio(
-                  value: 'B',
-                  groupValue: _selected,
-                  onChanged: checkChanged,
-                ),
-                Text(
-                  'Radio B',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+            items: <DropdownMenuItem<String>>[
+              const DropdownMenuItem<String>(
+                value: 'One',
+                child: const Text('One'),
+              ),
+              const DropdownMenuItem<String>(
+                value: 'Two',
+                child: const Text('Two'),
+              ),
+              const DropdownMenuItem<String>(
+                value: 'Three',
+                child: const Text('Three'),
+              ),
+            ],
+          ),
+        ],
       ),
-    );
-  }
-  void checkChanged(String? value){
-    setState(() {
-      _selected = value ?? 'no data';
-      _message = 'select: $_selected';
-    });
-  }
+    ),
+  );
+ }
+ void popupSelected(String? value){
+  setState(() {
+    _selected = value ?? 'not selected...';
+    _message = 'Select: $_selected';
+  });
+ }
 }
