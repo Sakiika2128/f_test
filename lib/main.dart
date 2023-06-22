@@ -29,48 +29,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static var _message = 'OK';
-  static var _index = 0;
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('My App'),
+        title: Text('MyApp'),
       ),
-      body: Center(
-        child: Text(
-          _message,
-          style: TextStyle(
-            fontSize: 28,
+      body: Column(
+        children: [
+          Text(
+            _message,
+            style: TextStyle(fontSize: 32),
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        backgroundColor: Colors.lightBlueAccent,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'Game',
-            icon: Icon(Icons.sports_esports),
-          ),
-          BottomNavigationBarItem(
-            label: 'Live',
-            icon: Icon(Icons.live_tv),
-          ),
-          BottomNavigationBarItem(
-            label: 'Music',
-            icon: Icon(Icons.music_note),
+          ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.all(20),
+            children: [
+              Text('犬派', style: TextStyle( fontSize: 24)),
+              Text('猫派', style: TextStyle(fontSize: 24)),
+              Text('うさぎ派', style: TextStyle(fontSize: 24)),
+            ],
           ),
         ],
-        onTap: tapBottomIcon,
       ),
     );
-  }
-  void tapBottomIcon(int value){
-    var items = ['Game', 'Live', 'Music'];
-    setState(() => {
-      _index = value,
-      _message = 'You tapped "' + items[_index] + '".',
-    });
   }
 }
