@@ -28,78 +28,68 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
- static var _message = 'OK';
+  static var _message = 'OK';
+  static var _stars = '☆☆☆☆☆';
+  static var _star = 0;
 
- @override
- Widget build(BuildContext context){
+  @override
+  Widget build(BuildContext context){
   return Scaffold(
     appBar: AppBar(
-      title: Text('FLUTTER DEMO'),
+      title: Text('タイトル'),
+      leading: BackButton(
+        color: Colors.white,
+      ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.sunny),
+          tooltip: 'add brightness',
+          onPressed: iconPressedAdd,
+        ),
+        IconButton(
+          icon: Icon(Icons.bedtime),
+          tooltip: 'get dark',
+          onPressed: iconPressedRemove,
+        ),
+      ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(30),
+        child: Center(
+          child: Text(
+            _stars,
+            style: TextStyle(
+              fontSize: 22,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
     ),
     body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Text(
-              _message,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 32,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: ElevatedButton(
-              onPressed: buttonPressed,
-              child: Text(
-                'Tap here',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 28,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ),
-        ],
+      child: Text(
+        _message,
+        style: TextStyle(fontSize: 28),
       ),
     ),
   );
- }
- void buttonPressed(){
-  showDialog(
-    context: context,
-    builder: (BuildContext context) => SimpleDialog(
-      title: const Text('which one do you choose?'),
-      children: [
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop<String>(context, '犬派'),
-          child: Text('犬派'),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop<String>(context, '猫派'),
-          child: Text('猫派'),
-        ),
-        SimpleDialogOption(
-          onPressed: () => Navigator.pop<String>(context, '動物苦手'),
-          child: Text('動物苦手'),
-        ),
-      ],
-      ),
-    ).then<void>((value) => resultAlert(value));
- }
- void resultAlert(String value){
-  setState(() => {
-    _message = 'selected: $value'
-  });
- }
+  }
+  void iconPressedAdd(){
+    _message = 'tap Sunny';
+    _star++;
+    update();
+  }
+  void iconPressedRemove(){
+    _message = 'tap Moon';
+    _star--;
+    update();
+  }
+  void update(){
+    _star = _star < 0 ? 0 : _star > 5 ? 5 : _star;
+    setState(() {
+      _stars = '★★★★★☆☆☆☆☆'.substring(
+        5 - _star,
+        5 - _star + 5
+      );
+    });
+  }
 }
