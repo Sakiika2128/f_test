@@ -29,67 +29,48 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static var _message = 'OK';
-  static var _stars = '☆☆☆☆☆';
-  static var _star = 0;
+  static var _index = 0;
 
   @override
   Widget build(BuildContext context){
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('タイトル'),
-      leading: BackButton(
-        color: Colors.white,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My App'),
       ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.sunny),
-          tooltip: 'add brightness',
-          onPressed: iconPressedAdd,
-        ),
-        IconButton(
-          icon: Icon(Icons.bedtime),
-          tooltip: 'get dark',
-          onPressed: iconPressedRemove,
-        ),
-      ],
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(30),
-        child: Center(
-          child: Text(
-            _stars,
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.white,
-            ),
+      body: Center(
+        child: Text(
+          _message,
+          style: TextStyle(
+            fontSize: 28,
           ),
         ),
       ),
-    ),
-    body: Center(
-      child: Text(
-        _message,
-        style: TextStyle(fontSize: 28),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _index,
+        backgroundColor: Colors.lightBlueAccent,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: 'Game',
+            icon: Icon(Icons.sports_esports),
+          ),
+          BottomNavigationBarItem(
+            label: 'Live',
+            icon: Icon(Icons.live_tv),
+          ),
+          BottomNavigationBarItem(
+            label: 'Music',
+            icon: Icon(Icons.music_note),
+          ),
+        ],
+        onTap: tapBottomIcon,
       ),
-    ),
-  );
+    );
   }
-  void iconPressedAdd(){
-    _message = 'tap Sunny';
-    _star++;
-    update();
-  }
-  void iconPressedRemove(){
-    _message = 'tap Moon';
-    _star--;
-    update();
-  }
-  void update(){
-    _star = _star < 0 ? 0 : _star > 5 ? 5 : _star;
-    setState(() {
-      _stars = '★★★★★☆☆☆☆☆'.substring(
-        5 - _star,
-        5 - _star + 5
-      );
+  void tapBottomIcon(int value){
+    var items = ['Game', 'Live', 'Music'];
+    setState(() => {
+      _index = value,
+      _message = 'You tapped "' + items[_index] + '".',
     });
   }
 }
