@@ -78,21 +78,24 @@ class _MyHomePageState extends State<MyHomePage> {
  void buttonPressed(){
   showDialog(
     context: context,
-    builder: (BuildContext context) => AlertDialog(
-      title: Text('Hello!'),
-      content: Text('button is tapped.'),
-      actions: [
-        TextButton(
-          child: Text('Cancel'),
-          onPressed: () => Navigator.pop<String>(context, 'Cancel'),
+    builder: (BuildContext context) => SimpleDialog(
+      title: const Text('which one do you choose?'),
+      children: [
+        SimpleDialogOption(
+          onPressed: () => Navigator.pop<String>(context, '犬派'),
+          child: Text('犬派'),
         ),
-        TextButton(
-          child: Text('OK'),
-          onPressed: () => Navigator.pop<String>(context, 'OK'),
+        SimpleDialogOption(
+          onPressed: () => Navigator.pop<String>(context, '猫派'),
+          child: Text('猫派'),
+        ),
+        SimpleDialogOption(
+          onPressed: () => Navigator.pop<String>(context, '動物苦手'),
+          child: Text('動物苦手'),
         ),
       ],
-    ),  
-  ).then<void>((value) => resultAlert(value));
+      ),
+    ).then<void>((value) => resultAlert(value));
  }
  void resultAlert(String value){
   setState(() => {
