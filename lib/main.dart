@@ -28,30 +28,69 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static var _message = 'OK';
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MyApp'),
+        title: Text('スクロール可能なリスト'),
       ),
-      body: Column(
-        children: [
-          Text(
-            _message,
-            style: TextStyle(fontSize: 32),
-          ),
-          ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.all(20),
-            children: [
-              Text('犬派', style: TextStyle( fontSize: 24)),
-              Text('猫派', style: TextStyle(fontSize: 24)),
-              Text('うさぎ派', style: TextStyle(fontSize: 24)),
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              color: Colors.blue,
+              height: 200,
+              child: const Center(
+                child: const Text(
+                  'Games',
+                  style: TextStyle(fontSize: 32),
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.amber,
+              height: 200,
+              child: const Center(
+                child: const Text(
+                  'Live',
+                  style: TextStyle(fontSize: 32),
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.green,
+              height: 200,
+              child: const Center(
+                child: Text(
+                  'Musics',
+                  style: TextStyle(fontSize: 32),
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.pink,
+              height: 200,
+              child: const Center(
+                child: Text(
+                  'SNS',
+                  style: TextStyle(fontSize: 32),
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.orange,
+              height: 200,
+              child: const Center(
+                child: Text(
+                  'Beauty',
+                  style: TextStyle(fontSize: 32),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
