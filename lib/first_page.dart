@@ -7,55 +7,52 @@ class FirstScreen extends StatefulWidget{
   _FirstScreenState createState() => _FirstScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen>
-  with SingleTickerProviderStateMixin{
-    static const List<Tab> tabs = [
-      Tab(text: 'One', icon: Icon(Icons.favorite)),
-      Tab(text: 'Two', icon: Icon(Icons.music_note)),
-      Tab(text: 'Three', icon: Icon(Icons.star)),
-    ];
-
-    late TabController _tabController;
-
-    @override
-    void initState(){
-      super.initState();
-      _tabController = TabController(
-        length: tabs.length, 
-        vsync: this,
-      );
-    }
+class _FirstScreenState extends State<FirstScreen>{
+  static var _items = <Widget>[];
+  static var _message = 'OK';
+  static var _tapped = 0;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    for(var i = 0; i < 5; i++){
+      var item = ListTile(
+        leading: Icon(Icons.auto_awesome),
+        title: Text('No. $i'),
+        onTap: () {
+          _tapped = i;
+          tapItem();
+        },
+      );
+      _items.add(item);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('My App'),
+        title: const Text('FLUTTER APP'),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.blue,
-        child: TabBar(
-          controller: _tabController,
-          tabs: tabs,
+      body: Center(
+        child: Text(
+          _message,
+          style: TextStyle(fontSize: 32),
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: tabs.map((Tab tab){
-          return createTab(tab);
-        }).toList(),
+      drawer: Drawer(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(20),
+          children: _items,
+        ),
       ),
     );
   }
-  Widget createTab(Tab tab){
-    return Center(
-      child: Text(
-        'This is ${tab.text} tab.',
-        style: TextStyle(
-          fontSize: 32,
-          color: Colors.blue,
-        ),
-      ),
-    );
+  void tapItem(){
+    Navigator.pop(context);
+    setState(() {
+      _message = 'you tapped No.$_tapped';
+    });
   }
 }
