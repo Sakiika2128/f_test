@@ -38,6 +38,8 @@ class SecondScreen extends StatelessWidget{
         onTap: (int value) {
           if(value == 0)
             Navigator.pop(context);
+          if(value == 1)
+            Navigator.pushNamed(context, '/');
         },
       ),
     );

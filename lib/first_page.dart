@@ -52,12 +52,7 @@ class _FirstScreenState extends State<FirstScreen>{
         ],
         onTap: (int value) {
           if(value == 1)
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SecondScreen(_input)
-              ),
-            );
+            Navigator.pushNamed(context, '/second', arguments: _input);
         },
       ),
     );
