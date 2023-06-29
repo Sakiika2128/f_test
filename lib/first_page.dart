@@ -2,20 +2,41 @@ import 'package:f_test/main.dart';
 import 'package:flutter/material.dart';
 import 'package:f_test/second_page.dart';
 
-class FirstScreen extends StatelessWidget{
+class FirstScreen extends StatefulWidget{
+  FirstScreen({Key? key}) : super(key: key);
+
+  @override
+  _FirstScreenState createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen>{
+  static final _controller = TextEditingController();
+  static var _input = '';
+
   @override 
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('books'),
+        title: Text('FLUTTER DEMO'),
       ),
-      body: Center(
-        child: Container(
-          child: const Text(
-            'This is books Screen.',
-            style: TextStyle(fontSize: 32),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: const Text(
+              'write something.',
+              style: TextStyle(fontSize: 32),
+            ),
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: TextField(
+              controller: _controller,
+              style: TextStyle(fontSize: 28),
+              onChanged: changeField,
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
@@ -34,11 +55,12 @@ class FirstScreen extends StatelessWidget{
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SecondScreen(),
-              )
+                builder: (context) => SecondScreen(_input)
+              ),
             );
         },
       ),
     );
   }
+  void changeField(String val) => _input = val;
 }
