@@ -16,11 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xff2196f3),
         canvasColor: const Color(0xfffafafa),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => FirstScreen(),
-        '/second': (context) => SecondScreen('Second'),
-      },
+      home: FirstScreen(),
     );
   }
 }

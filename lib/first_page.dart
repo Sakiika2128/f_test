@@ -3,59 +3,56 @@ import 'package:flutter/material.dart';
 import 'package:f_test/second_page.dart';
 
 class FirstScreen extends StatefulWidget{
-  FirstScreen({Key? key}) : super(key: key);
-
-  @override
+  const FirstScreen({Key? key}) :super(key: key);
   _FirstScreenState createState() => _FirstScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen>{
-  static final _controller = TextEditingController();
-  static var _input = '';
+class _FirstScreenState extends State<FirstScreen>
+  with SingleTickerProviderStateMixin{
+    static const List<Tab> tabs = [
+      Tab(text: 'One'),
+      Tab(text: 'Two'),
+      Tab(text: 'Three'),
+    ];
 
-  @override 
-  Widget build(BuildContext context){
+    late TabController _tabController;
+
+    @override
+    void initState(){
+      super.initState();
+      _tabController = TabController(
+        length: tabs.length, 
+        vsync: this,
+      );
+    }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FLUTTER DEMO'),
+        title: Text('My App'),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: const Text(
-              'write something.',
-              style: TextStyle(fontSize: 32),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: TextField(
-              controller: _controller,
-              style: TextStyle(fontSize: 28),
-              onChanged: changeField,
-            ),
-          ),
-        ],
+      body: TabBarView(
+        controller: _tabController,
+        children: tabs.map((Tab tab){
+          return createTab(tab);
+        }).toList(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Books',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.navigate_next),
-            label: 'next',
-          ),
-        ],
-        onTap: (int value) {
-          if(value == 1)
-            Navigator.pushNamed(context, '/second', arguments: _input);
-        },
+      bottomNavigationBar: TabBar(
+          controller: _tabController,
+          tabs: tabs,
+        ),
+    );
+  }
+  Widget createTab(Tab tab){
+    return Center(
+      child: Text(
+        'This is ${tab.text} tab.',
+        style: TextStyle(
+          fontSize: 32,
+          color: Colors.blue,
+        ),
       ),
     );
   }
-  void changeField(String val) => _input = val;
 }
