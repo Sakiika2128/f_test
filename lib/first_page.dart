@@ -10,9 +10,9 @@ class FirstScreen extends StatefulWidget{
 class _FirstScreenState extends State<FirstScreen>
   with SingleTickerProviderStateMixin{
     static const List<Tab> tabs = [
-      Tab(text: 'One'),
-      Tab(text: 'Two'),
-      Tab(text: 'Three'),
+      Tab(text: 'One', icon: Icon(Icons.favorite)),
+      Tab(text: 'Two', icon: Icon(Icons.music_note)),
+      Tab(text: 'Three', icon: Icon(Icons.star)),
     ];
 
     late TabController _tabController;
@@ -32,16 +32,19 @@ class _FirstScreenState extends State<FirstScreen>
       appBar: AppBar(
         title: Text('My App'),
       ),
+      bottomNavigationBar: Container(
+        color: Colors.blue,
+        child: TabBar(
+          controller: _tabController,
+          tabs: tabs,
+        ),
+      ),
       body: TabBarView(
         controller: _tabController,
         children: tabs.map((Tab tab){
           return createTab(tab);
         }).toList(),
       ),
-      bottomNavigationBar: TabBar(
-          controller: _tabController,
-          tabs: tabs,
-        ),
     );
   }
   Widget createTab(Tab tab){
