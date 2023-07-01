@@ -14,23 +14,23 @@ class MyPainter extends CustomPainter{
       color: Colors.red,
       fontSize: 48,
     ))
-    ..addText('あか')
+    ..addText('👨‍🦱←出会い厨')
     ..pushStyle(ui.TextStyle(
       color: Colors.blue,
       fontSize: 32
     ))
-    ..addText('あお')
+    ..addText('どしたん？話聞こか？')
     ..pushStyle(ui.TextStyle(
-      color: Colors.yellow,
+      color: Colors.green,
       fontSize: 16,
     ))
-    ..addText('きいろ');
+    ..addText('LINEやってる？てかどこ住み？');
     
     ui.Paragraph paragraph = builder.build()
-    ..layout(ui.ParagraphConstraints(width: 600));
+    ..layout(ui.ParagraphConstraints(width: 300));
 
-  Offset offset = Offset(50.0, 50.0);
-  canvas.drawParagraph(paragraph, offset);
+    Offset offset = Offset(50.0, 50.0);
+    canvas.drawParagraph(paragraph, offset);
   }
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
