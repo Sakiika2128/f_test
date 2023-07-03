@@ -16,6 +16,19 @@ class MyPainter extends CustomPainter{
       Rect r = Rect.fromLTWH(50.0, 50.0, 300.0, 200.0);
       canvas.drawImageRect(_img, r0, r, p);
     }
+
+    ui.ParagraphBuilder builder = ui.ParagraphBuilder(
+      ui.ParagraphStyle(textDirection: TextDirection.ltr),
+    )
+    ..pushStyle(ui.TextStyle(color: Colors.red, fontSize: 32))
+    ..addText('ネコチャン！！');
+
+    ui.Paragraph paragraph = builder.build()
+    ..layout(ui.ParagraphConstraints(width: 300.0));
+
+    Offset off = Offset(50.0, 250.0);
+    canvas.drawParagraph(paragraph, off);
+
   }
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
