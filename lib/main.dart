@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xff2196f3),
         canvasColor: const Color(0xfffafafa),
       ),
-      home: FirstScreen(),
+      home: MyHomePage(),
     );
   }
 }
