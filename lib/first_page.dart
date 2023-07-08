@@ -12,8 +12,7 @@ class MyHomePage extends StatefulWidget{
 }
 
 class _MyHomePageState extends State<MyHomePage>{
-  static double _value = 0;
-  static double _opaq = 0;
+  static ValueNotifier<int> _value = ValueNotifier<int>(0);
 
   @override
   void initState(){
@@ -23,51 +22,37 @@ class _MyHomePageState extends State<MyHomePage>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         title: Text(
-          'GRAPHIC DEMO',
+          'Graphic demo',
           style: TextStyle(fontSize: 32),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-          ),
-          Container(
-            width: 300,
-            height: 300,
-            child: CustomPaint(
-              painter: MyPainter(_value, _opaq.toInt()),
-              child: Center(),
+      body: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
             ),
-          ),
-          Slider(
-            min: 0.0,
-            max: 300.0,
-            value: _value,
-            onChanged: _changeVal,
-          ),
-          Slider(
-            min: 0.0,
-            max: 255.0,
-            value: _opaq,
-            onChanged: _changeOpaq,
-          ),
-        ],
+            Container(
+              width: 300,
+              height: 300,
+              child: CustomPaint(
+                painter: MyPainter(_value),
+                child: Center(),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+            ),
+            ElevatedButton(
+              child: Text('CLICK!', style: TextStyle(fontSize: 30)),
+              onPressed: () => _value.value++,
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  void _changeVal(double value){
-    setState(() {
-      _value = value;
-    });
-  }
-  void _changeOpaq(double value){
-    setState(() {
-      _opaq = value;
-    });
   }
 }
