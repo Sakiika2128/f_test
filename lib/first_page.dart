@@ -12,21 +12,36 @@ class MyHomePage extends StatefulWidget{
 }
 
 class _MyHomePageState extends State<MyHomePage>{
+  static List<Offset>_points = [];
+
   @override
-  Widget build(BuildContext context) {
+  void initState(){
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         title: Text(
-          'PATH DEMO',
-          style: TextStyle(fontSize: 32)
+          'GRAPHIC DEMO',
+          style: TextStyle(fontSize: 32),
         ),
       ),
-      body: Container(
-        child: CustomPaint(
-          painter: MyPainter(),
+      body: Center(
+        child: Listener(
+          onPointerDown: _addPointer,
+          child: CustomPaint(
+            painter: MyPainter(_points),
+            child: Center(),
+          ),
         ),
       ),
     );
+  }
+  void _addPointer(PointerDownEvent event){
+    setState(() {
+      _points.add(event.localPosition);
+    });
   }
 }
