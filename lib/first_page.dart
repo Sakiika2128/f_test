@@ -12,7 +12,8 @@ class MyHomePage extends StatefulWidget{
 }
 
 class _MyHomePageState extends State<MyHomePage>{
-  static List<Offset>_points = [];
+  static double _value = 0;
+  static double _opaq = 0;
 
   @override
   void initState(){
@@ -23,25 +24,50 @@ class _MyHomePageState extends State<MyHomePage>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         title: Text(
           'GRAPHIC DEMO',
           style: TextStyle(fontSize: 32),
         ),
       ),
-      body: Center(
-        child: Listener(
-          onPointerDown: _addPointer,
-          child: CustomPaint(
-            painter: MyPainter(_points),
-            child: Center(),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10),
           ),
-        ),
+          Container(
+            width: 300,
+            height: 300,
+            child: CustomPaint(
+              painter: MyPainter(_value, _opaq.toInt()),
+              child: Center(),
+            ),
+          ),
+          Slider(
+            min: 0.0,
+            max: 300.0,
+            value: _value,
+            onChanged: _changeVal,
+          ),
+          Slider(
+            min: 0.0,
+            max: 255.0,
+            value: _opaq,
+            onChanged: _changeOpaq,
+          ),
+        ],
       ),
     );
   }
-  void _addPointer(PointerDownEvent event){
+
+  void _changeVal(double value){
     setState(() {
-      _points.add(event.localPosition);
+      _value = value;
+    });
+  }
+  void _changeOpaq(double value){
+    setState(() {
+      _opaq = value;
     });
   }
 }
