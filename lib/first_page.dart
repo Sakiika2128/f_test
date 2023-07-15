@@ -26,28 +26,15 @@ class _MyHomePageState extends State<MyHomePage>{
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            AnimatedAlign(
-              alignment: flg ? Alignment.topLeft : Alignment.topRight, 
-              duration: const Duration(seconds: 1),
-              child: Container(
-                color: Colors.red,
-                height: 100,
-                width: 100,
+            AnimatedDefaultTextStyle(
+              duration: const Duration(seconds: 2),
+              style: TextStyle(
+                fontSize: flg ? 48 : 96,
+                fontWeight: FontWeight.bold,
+                color: flg ? Colors.red : Colors.blue,
               ),
-              curve: Curves.linear,
+              child: Text('HELLO FLUTTER'),
             ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: AnimatedAlign(
-                alignment: flg ? Alignment.topRight : Alignment.topLeft, 
-                duration: const Duration(seconds: 3),
-                child: Container(
-                  color: Colors.blue,
-                  height: 180,
-                  width: 150,
-                ),
-              ),
-            )
           ],
         ),
       ),
