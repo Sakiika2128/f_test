@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage>
       super.initState();
       controller = AnimationController(
         vsync: this,
-        duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 10),
       );
       animation = Tween<double>(begin: 0, end: pi * 2)
         .animate(controller)
