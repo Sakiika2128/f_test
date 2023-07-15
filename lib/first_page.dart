@@ -26,17 +26,11 @@ class _MyHomePageState extends State<MyHomePage>{
         padding: EdgeInsets.all(20),
         child: Stack(
           children: [
-            AnimatedCrossFade(
-              duration: const Duration(seconds: 3),
-              firstChild: const FlutterLogo(
-                style: FlutterLogoStyle.horizontal,
-                size: 300,
-              ),
-              secondChild: const FlutterLogo(
-                style: FlutterLogoStyle.stacked,
-                size: 300,
-              ),
-              crossFadeState: flg ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            AnimatedContainer(
+              duration: const Duration(seconds: 1),
+              color: flg ? Colors.lightGreen : Colors.pink,
+              width: flg ? 100 : 300,
+              height: flg ? 300 : 100,
             ),
           ],
         ),
