@@ -24,16 +24,17 @@ class _MyHomePageState extends State<MyHomePage>{
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: Column(
+        child: Stack(
           children: [
-            AnimatedDefaultTextStyle(
-              duration: const Duration(seconds: 2),
-              style: TextStyle(
-                fontSize: flg ? 48 : 96,
-                fontWeight: FontWeight.bold,
-                color: flg ? Colors.red : Colors.blue,
-              ),
-              child: Text('HELLO FLUTTER'),
+            AnimatedPositioned(
+              duration: const Duration(seconds: 3),
+              top: flg ? 300 : 0,
+              left: flg ? 0 : 300,
+              child: Container(
+                color: Colors.pink,
+                width: 100,
+                height: 100,
+              ), 
             ),
           ],
         ),
