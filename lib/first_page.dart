@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage>{
             flg = !flg;
           });
         },
-        child: const Icon(Icons.music_note),
+        child: const Icon(Icons.priority_high),
       ),
     );
   }
