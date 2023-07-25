@@ -12,8 +12,7 @@ class MyHomePage extends StatefulWidget{
 
 class _MyHomePageState extends State<MyHomePage>{
   final _controller = TextEditingController();
-  static const host = 'baconipsum.com';
-  static const path = '/api/?type=meat-and-filler&paras=1&format=text';
+  static const url = 'https://baconipsum.com/api?type=meat-and-filler&paras=1&format=text';
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +52,8 @@ class _MyHomePageState extends State<MyHomePage>{
   }
 
   void getData() async {
-    var http = await HttpClient();
-    HttpClientRequest request = await http.get(host, 80, path);
+    var https = await HttpClient();
+    HttpClientRequest request = await https.getUrl(Uri.parse(url));
     HttpClientResponse response = await request.close();
     final value = await response.transform(utf8.decoder).join();
     _controller.text = value;
