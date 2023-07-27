@@ -48,7 +48,8 @@ class _MyHomePageState extends State<MyHomePage>{
 
   void fire() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    final snapshot = await firestore.collection('mydata').get();
+    final snapshot = await firestore.collection('mydata')
+      .where('old', isGreaterThan: 4).get();
     var msg = '';
     snapshot.docChanges.forEach((element) {
       final animal = element.doc.get('animal');
