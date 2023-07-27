@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_test/main.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -12,7 +14,7 @@ class MyHomePage extends StatefulWidget{
 
 class _MyHomePageState extends State<MyHomePage>{
   final _controller = TextEditingController();
-  static const url = 'https://jsonplaceholder.typicode.com/posts';
+  // static const url = 'https://jsonplaceholder.typicode.com/posts';
 
   @override
   Widget build(BuildContext context) {
@@ -38,33 +40,22 @@ class _MyHomePageState extends State<MyHomePage>{
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.open_in_new),
         onPressed: () {
-          setData();
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text('loaded!'),
-              content: Text('get contents from URI.'),
-            ),
-          );
+          fire();
         },
       ),
     );
   }
 
-  void setData() async {
-    final ob = {
-      "title": "あああ",
-      "author": "SYODA-Tuyano",
-      "content": "this is content.これはサンプルコンテンツです"
-    };
-    final jsondata = json.encode(ob);
-    var https = await HttpClient();
-    HttpClientRequest request = await https.postUrl(Uri.parse(url));
-    request.headers.set(HttpHeaders.contentTypeHeader,
-      "application/json; charset=UTF-8");
-    request.write(jsondata);
-    HttpClientResponse response = await request.close();
-    final value = await response.transform(utf8.decoder).join();
-    _controller.text = value;
+  void fire() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final snapshot = await firestore.collection('mydata').get();
+    var msg = '';
+    snapshot.docChanges.forEach((element) {
+      final animal = element.doc.get('animal');
+      final character = element.doc.get('character');
+      final old = element.doc.get('old');
+      msg += "${animal} (${old}) 性格：${character}\n";
+    });
+    _controller.text = msg;
   }
 }
