@@ -12,7 +12,7 @@ class MyHomePage extends StatefulWidget{
 
 class _MyHomePageState extends State<MyHomePage>{
   final _controller = TextEditingController();
-  static const url = 'https://baconipsum.com/api?type=meat-and-filler&paras=1&format=text';
+  static const url = 'https://jsonplaceholder.typicode.com/posts';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage>{
               controller: _controller,
               style: TextStyle(fontSize: 24),
               minLines: 1,
-              maxLines: 5,
+              maxLines: 10,
             ),
           ],
         ),
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage>{
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.open_in_new),
         onPressed: () {
-          getData();
+          setData();
           showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -51,9 +51,18 @@ class _MyHomePageState extends State<MyHomePage>{
     );
   }
 
-  void getData() async {
+  void setData() async {
+    final ob = {
+      "title": "あああ",
+      "author": "SYODA-Tuyano",
+      "content": "this is content.これはサンプルコンテンツです"
+    };
+    final jsondata = json.encode(ob);
     var https = await HttpClient();
-    HttpClientRequest request = await https.getUrl(Uri.parse(url));
+    HttpClientRequest request = await https.postUrl(Uri.parse(url));
+    request.headers.set(HttpHeaders.contentTypeHeader,
+      "application/json; charset=UTF-8");
+    request.write(jsondata);
     HttpClientResponse response = await request.close();
     final value = await response.transform(utf8.decoder).join();
     _controller.text = value;
