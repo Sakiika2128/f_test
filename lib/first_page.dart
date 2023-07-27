@@ -47,15 +47,18 @@ class _MyHomePageState extends State<MyHomePage>{
   }
 
   void fire() async {
+    var msg = _controller.text;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     final snapshot = await firestore.collection('mydata')
-      .where('old', isGreaterThan: 4).get();
-    var msg = '';
+      .orderBy('animal', descending: false)
+      .startAt([msg])
+      .endAt([msg + '\uf8ff'])
+      .get();
     snapshot.docChanges.forEach((element) {
       final animal = element.doc.get('animal');
       final character = element.doc.get('character');
       final old = element.doc.get('old');
-      msg += "${animal} (${old}) 性格：${character}\n";
+      msg += "\n${animal} (${old}) 性格：${character}";
     });
     _controller.text = msg;
   }
