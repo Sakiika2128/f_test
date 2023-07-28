@@ -14,7 +14,12 @@ class MyHomePage extends StatefulWidget{
 
 class _MyHomePageState extends State<MyHomePage>{
   final _controller = TextEditingController();
-  // static const url = 'https://jsonplaceholder.typicode.com/posts';
+
+  @override
+  void initState(){
+    super.initState();
+    // fire();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,25 +45,36 @@ class _MyHomePageState extends State<MyHomePage>{
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.open_in_new),
         onPressed: () {
-          fire();
+          addDoc();
         },
       ),
     );
   }
 
-  void fire() async {
+  void addDoc() async {
     var msg = _controller.text;
+    final input = msg.split(',');
+    final data = {
+      'animal': input[0],
+      'character': input[1],
+      'old': input[2]
+    };
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final snapshot = await firestore.collection('mydata').add(data);
+    fire();
+  }
+
+  void fire() async {
+    var msg = '';
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     final snapshot = await firestore.collection('mydata')
-      .orderBy('animal', descending: false)
-      .startAt([msg])
-      .endAt([msg + '\uf8ff'])
+      .orderBy('old', descending: false)
       .get();
     snapshot.docChanges.forEach((element) {
       final animal = element.doc.get('animal');
       final character = element.doc.get('character');
       final old = element.doc.get('old');
-      msg += "\n${animal} (${old}) 性格：${character}";
+      msg += '\n${animal}(${old}歳) 性格：${character}';
     });
     _controller.text = msg;
   }
