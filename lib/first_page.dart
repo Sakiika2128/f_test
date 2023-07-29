@@ -3,12 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_test/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-
-import 'package:google_sign_in/google_sign_in.dart';
 
 class MyHomePage extends StatefulWidget{
   const MyHomePage({Key? key}) :super(key: key);
@@ -22,16 +19,6 @@ class _MyHomePageState extends State<MyHomePage>{
   void initState(){
     super.initState();
     // fire();
-  }
-
-  Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override
