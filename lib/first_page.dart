@@ -18,7 +18,6 @@ class _MyHomePageState extends State<MyHomePage>{
   @override
   void initState(){
     super.initState();
-    // fire();
   }
 
   @override
@@ -45,23 +44,10 @@ class _MyHomePageState extends State<MyHomePage>{
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.open_in_new),
         onPressed: () {
-          addDoc();
+          fire();
         },
       ),
     );
-  }
-
-  void addDoc() async {
-    var msg = _controller.text;
-    final input = msg.split(',');
-    final data = {
-      'animal': input[0],
-      'character': input[1],
-      'old': input[2]
-    };
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    final snapshot = await firestore.collection('mydata').add(data);
-    fire();
   }
 
   void fire() async {
