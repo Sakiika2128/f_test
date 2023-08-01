@@ -17,6 +17,8 @@ class MyHomePage extends StatefulWidget{
 
 class _MyHomePageState extends State<MyHomePage>{
   final _controller = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
 
   @override
   void initState(){
@@ -34,6 +36,28 @@ class _MyHomePageState extends State<MyHomePage>{
         child: Column(
           children: [
             Text('INTERNET ACCESS', style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500)),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Text('ログイン', style: TextStyle(fontSize: 24)),
+                  Padding(padding: EdgeInsets.all(10)),
+                  TextField(
+                    controller: email,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Padding(padding: EdgeInsets.all(5)),
+                  TextField(
+                    controller: password,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => signInWithMail(email.text, password.text), 
+              child: const Text('Go'),
+            ),
             Padding(padding: EdgeInsets.all(10)),
             TextField(
               controller: _controller,
@@ -90,5 +114,20 @@ class _MyHomePageState extends State<MyHomePage>{
         fire();
       }
     });
+  }
+
+  void signInWithMail(String email, String password) async {
+    try {
+      final credential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+          email: email, 
+          password: password
+        );
+        // print(email);
+        // print(password);
+        fire();
+    } on FirebaseAuthException catch(e) {
+      print(e);
+    }
   }
 }
