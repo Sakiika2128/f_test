@@ -65,16 +65,16 @@ class SampleGame extends FlameGame with KeyboardEvents {
   ) {
     final _dpos = Vector2(0, 0);
 
-    if(event.character == 'j'){
+    if(keysPressed.contains(LogicalKeyboardKey.arrowLeft)){
       _dpos.x = -10;
     }
-    if(event.character == 'l'){
+    if(keysPressed.contains(LogicalKeyboardKey.arrowRight)){
       _dpos.x = 10;
     }
-    if(event.character == 'i'){
+    if(keysPressed.contains(LogicalKeyboardKey.arrowUp)){
       _dpos.y = -10;
     }
-    if(event.character == 'k'){
+    if(keysPressed.contains(LogicalKeyboardKey.arrowDown)){
       _dpos.y = 10;
     }
     _loc += _dpos;
