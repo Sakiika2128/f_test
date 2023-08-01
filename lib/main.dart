@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/services.dart';
+import 'package:flame/components.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,7 +28,6 @@ class MyHomePage extends StatefulWidget{
 }
 
 class _MyHomePageState extends State<MyHomePage>{
-
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -39,45 +39,31 @@ class _MyHomePageState extends State<MyHomePage>{
   }
 }
 
-class SampleGame extends FlameGame with KeyboardEvents {
-  late final paint;
-  late Vector2 _loc;
+class SampleGame extends FlameGame {
+  @override
+  Color backgroundColor() => const Color(0xffCCCCFF);
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    paint = Paint();
-    paint.color = Colors.blue;
-    _loc = Vector2(100, 100);
+    add(MySprite(Vector2(150, 150)));
+  }
+}
+
+class MySprite extends SpriteComponent{
+  late final Vector2 _position;
+  MySprite(this._position): super();
+
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    sprite = await Sprite.load('cat.png');
+    position = _position;
+    size = Vector2(500, 281);
   }
 
   @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-    final rect = Rect.fromLTWH(_loc.x, _loc.y, 100, 100);
-    canvas.drawOval(rect, paint);
-  }
-
-  @override
-  KeyEventResult onKeyEvent(
-    RawKeyEvent event,
-    Set<LogicalKeyboardKey> keysPressed,
-  ) {
-    final _dpos = Vector2(0, 0);
-
-    if(keysPressed.contains(LogicalKeyboardKey.arrowLeft)){
-      _dpos.x = -10;
-    }
-    if(keysPressed.contains(LogicalKeyboardKey.arrowRight)){
-      _dpos.x = 10;
-    }
-    if(keysPressed.contains(LogicalKeyboardKey.arrowUp)){
-      _dpos.y = -10;
-    }
-    if(keysPressed.contains(LogicalKeyboardKey.arrowDown)){
-      _dpos.y = 10;
-    }
-    _loc += _dpos;
-    return KeyEventResult.handled;
+  void update(double delta) {
+    super.update(delta);
   }
 }
