@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f_test/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+
+import 'package:google_sign_in/google_sign_in.dart';
 
 class MyHomePage extends StatefulWidget{
   const MyHomePage({Key? key}) :super(key: key);
@@ -44,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage>{
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.open_in_new),
         onPressed: () {
-          fire();
+          doSignin();
         },
       ),
     );
@@ -63,5 +66,29 @@ class _MyHomePageState extends State<MyHomePage>{
       msg += '\n${animal}(${old}歳) 性格：${character}';
     });
     _controller.text = msg;
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(
+      clientId: '292281740205-qb1og0lavq85v0n19pk3jdtml438a0s4.apps.googleusercontent.com',
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    ).signIn();
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  void doSignin() {
+    signInWithGoogle().then((value) {
+      if(value.user != null){
+        fire();
+      }
+    });
   }
 }
