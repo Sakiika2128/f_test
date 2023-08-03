@@ -1,8 +1,12 @@
+import 'dart:html';
+
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/components.dart';
+import 'package:flame/experimental.dart';
 
 void main() => runApp(MyApp());
 
@@ -39,8 +43,8 @@ class _MyHomePageState extends State<MyHomePage>{
   }
 }
 
-class SampleGame extends FlameGame 
-  with HasKeyboardHandlerComponents{
+class SampleGame extends FlameGame with HasTappableComponents{
+  late final MySprite _sprite;
 
   @override
   Color backgroundColor() => const Color(0xffCCCCFF);
@@ -48,14 +52,19 @@ class SampleGame extends FlameGame
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    add(MySprite(Vector2(150, 150)));
+    _sprite = MySprite(Vector2(100, 100));
+    add(_sprite);
+  }
+
+  @override
+  void onTapDown(TapDownEvent event){
+    _sprite._position = event.canvasPosition;
   }
 }
 
-class MySprite extends SpriteComponent with KeyboardHandler{
+class MySprite extends SpriteComponent with TapCallbacks {
   late Vector2 _position;
-  late Vector2 _delta;
-  MySprite(this._position): super();
+  MySprite(this._position) : super();
 
   @override
   Future<void> onLoad() async {
@@ -63,35 +72,19 @@ class MySprite extends SpriteComponent with KeyboardHandler{
     sprite = await Sprite.load('cat.png');
     position = _position;
     size = Vector2(500, 281);
-    _delta = Vector2.zero();
+    anchor = Anchor.center;
   }
 
   @override
-  void update(double delta) {
-    position += _delta * delta * 100;
+  void update(double delta){
+    final d = (_position - position) / 1;
+    position += d * delta * 200;
     super.update(delta);
   }
 
   @override
-  bool onKeyEvent(
-    RawKeyEvent event,
-    Set<LogicalKeyboardKey> keysPressed,
-  ) {
-    if(event is RawKeyUpEvent){
-      _delta = Vector2.zero();
-    }
-    if(event.character == 'j'){
-      _delta.x = -1;
-    }
-    if(event.character == 'l'){
-      _delta.x = 1;
-    }
-    if(event.character == 'i'){
-      _delta.y = -1;
-    }
-    if(event.character == 'k'){
-      _delta.y = 1;
-    }
-    return true;
+  void onTapDown(TapDownEvent event) {
+    _position = event.canvasPosition;
+    position = _position;
   }
 }
